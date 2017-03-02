@@ -48,6 +48,7 @@
     const idx = Math.floor(Math.random() * holes.length);
     const hole = holes[idx];
     if (hole === lastHole) {
+      console.log('Ah nah thats the same one bud');
       return randomHole(holes);
     }
     lastHole = hole;
@@ -56,12 +57,11 @@
 
   function peep() {
     const time = randomTime(200, 1000);
-    const hole = randomHole(hole);
+    const hole = randomHole(holes);
     hole.classList.add('up');
     setTimeout(() => {
       hole.classList.remove('up');
       if (!timeUp) peep();
-      peep();
     }, time);
   }
 
@@ -72,8 +72,9 @@
     peep();
     setTimeout(() => timeUp = true, 10000)
   }
+
   function bonk(e) {
-    if (!e.isTrusted) return; // cheater!!!
+    if(!e.isTrusted) return; // cheater!
     score++;
     this.classList.remove('up');
     scoreBoard.textContent = score;
